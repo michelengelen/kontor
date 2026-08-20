@@ -36,24 +36,5 @@
 }
 
 .submit {
-  width: 100%;
-  padding: 11px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
   margin-top: 8px;
-}
-
-.submit:hover {
-  background: var(--accent-strong);
-  border-color: var(--accent-strong);
-}
-
-.submit:disabled {
-  opacity: 0.55;
-  cursor: default;
 }

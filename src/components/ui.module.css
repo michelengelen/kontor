@@ -1,4 +1,127 @@
-/* Shared primitives: buttons, inputs, dialogs, chips. */
+/* Shared primitives: layout, buttons, inputs, dialogs, chips. */
+
+/* Page scaffolding */
+
+.page {
+  width: min(960px, 100%);
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.pageHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+/* Bordered surface card */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+}
+
+/* Dotted leader line between a label and its value */
+
+.leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--baseline);
+  transform: translateY(-3px);
+  min-width: 16px;
+}
+
+/* Collapse chevron */
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.chevronClosed {
+  composes: chevron;
+  transform: rotate(-90deg);
+}
+
+/* Meter — height varies per context via --meter-h */
+
+.meterTrack {
+  height: var(--meter-h, 8px);
+  border-radius: 4px;
+  background: var(--accent-soft);
+  overflow: hidden;
+}
+
+.meterFill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.meterFillGood {
+  composes: meterFill;
+  background: var(--good);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+
+  .meterFill {
+    transition: none;
+  }
+}
+
+/* Empty state */
+
+.emptyState {
+  max-width: 480px;
+  margin: 48px auto 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 0 8px;
+}
+
+.emptyState > hr {
+  width: 64px;
+}
+
+.emptyCopy {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.emptySub {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.emptyLink {
+  color: var(--accent);
+}
+
+/* Muted helper line under forms and lists */
+
+.helper {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.45;
+}
 
 .button {
   display: inline-flex;
@@ -35,11 +158,6 @@
 .buttonPrimary:disabled {
   opacity: 0.55;
   cursor: default;
-}
-
-.buttonDanger {
-  composes: button;
-  color: var(--danger);
 }
 
 .buttonGhost {
@@ -98,6 +216,15 @@
 .mono {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
+}
+
+/* Small muted mono meta text (counts, percentages, sums) */
+
+.metaMono {
+  composes: mono;
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 /* Dialog — centered on wide screens, bottom sheet below 700px. */
@@ -212,15 +339,19 @@
   color: #fff;
 }
 
-/* Category chips */
+/* Full-width primary button (login, manager footers) */
 
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12px;
-  color: var(--ink-2);
+.buttonPrimaryWide {
+  composes: buttonPrimary;
+  width: 100%;
+  justify-content: center;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
 }
+
+/* Category color dot */
 
 .chipDot {
   width: 8px;
@@ -244,6 +375,18 @@
   font-size: 15px;
   cursor: pointer;
   text-align: left;
+}
+
+.selectTriggerMono {
+  composes: selectTrigger;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+}
+
+.selectTriggerMono:disabled {
+  opacity: 0.55;
+  cursor: default;
 }
 
 .selectPopup {
@@ -271,27 +414,6 @@
 
 .selectItem[data-highlighted] {
   background: var(--page);
-}
-
-/* Checkbox */
-
-.checkbox {
-  display: grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  border: 1px solid var(--baseline);
-  border-radius: 4px;
-  background: var(--surface);
-  cursor: pointer;
-  padding: 0;
-  flex-shrink: 0;
-}
-
-.checkbox[data-checked] {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
 }
 
 /* Choice chips (Rhythmus, Kategorie, Bezahlt von) */

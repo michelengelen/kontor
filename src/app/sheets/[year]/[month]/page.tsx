@@ -69,11 +69,11 @@ export default async function SheetPage({ params }: { params: Params }) {
   const title = monthTitle(year, month);
 
   return (
-    <main className={styles.main}>
-      <header className={styles.head}>
+    <main className={ui.page}>
+      <header className={ui.pageHead}>
         <div>
           <p className={ui.eyebrow}>Monatsblatt</p>
-          <h1 className={styles.title}>{title}</h1>
+          <h1 className={ui.pageTitle}>{title}</h1>
         </div>
         <div className={styles.headActions}>
           <AdhocDialog

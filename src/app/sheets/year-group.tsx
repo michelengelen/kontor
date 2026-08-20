@@ -47,7 +47,7 @@ export function YearGroup({
   }
 
   return (
-    <section className={styles.yearBox}>
+    <section className={ui.card}>
       <button
         type="button"
         className={styles.yearHeader}
@@ -56,11 +56,11 @@ export function YearGroup({
       >
         <ChevronDown
           size={16}
-          className={open ? styles.chevron : styles.chevronClosed}
+          className={open ? ui.chevron : ui.chevronClosed}
         />
         <span className={styles.yearName}>{year}</span>
-        <span className={styles.leader} aria-hidden />
-        <span className={`${ui.mono} ${styles.yearMeta}`}>
+        <span className={ui.leader} aria-hidden />
+        <span className={ui.metaMono}>
           {count} {count === 1 ? "Blatt" : "Blätter"} · {formatCents(sumCents)}
         </span>
       </button>

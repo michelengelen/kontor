@@ -82,11 +82,11 @@ export default async function SheetsPage() {
 
   if (allSheets.length === 0) {
     return (
-      <main className={styles.main}>
-        <div className={styles.emptyState}>
+      <main className={ui.page}>
+        <div className={ui.emptyState}>
           <hr className={ui.doubleRule} />
           <p className={ui.eyebrow}>Noch kein Blatt</p>
-          <p className={styles.emptyCopy}>
+          <p className={ui.emptyCopy}>
             Lege dein erstes Monatsblatt an — es wird aus deiner Vorlage
             erstellt und danach eingefroren.
           </p>
@@ -94,14 +94,14 @@ export default async function SheetsPage() {
             ym={cur}
             monthName={monthName(parseYm(cur).month)}
           />
-          <p className={styles.emptySub}>
+          <p className={ui.emptySub}>
             {templateCount.length}{" "}
             {templateCount.length === 1 ? "Eintrag" : "Einträge"} in der{" "}
-            <Link href="/template" className={styles.emptyLink}>
+            <Link href="/template" className={ui.emptyLink}>
               Vorlage
             </Link>
           </p>
-          <p className={styles.helper}>
+          <p className={ui.helper}>
             Anlegen ab dem aktuellen Monat, bis zu 3 Monate im Voraus
           </p>
           <hr className={ui.doubleRule} />
@@ -111,7 +111,7 @@ export default async function SheetsPage() {
   }
 
   return (
-    <main className={styles.main}>
+    <main className={ui.page}>
       <CreateSheetForm options={options} />
 
       <div className={styles.years}>
@@ -141,9 +141,9 @@ export default async function SheetsPage() {
                       {formatCents(card.totalCents)}
                     </span>
                   </div>
-                  <div className={styles.cardMeter}>
+                  <div className={`${ui.meterTrack} ${styles.cardMeter}`}>
                     <div
-                      className={done ? styles.cardMeterDone : styles.cardMeterFill}
+                      className={done ? ui.meterFillGood : ui.meterFill}
                       style={{ width: `${Math.max(fraction * 100, done ? 100 : 0)}%` }}
                     />
                   </div>
@@ -160,7 +160,7 @@ export default async function SheetsPage() {
                         · {card.openCount} offen
                       </span>
                     )}
-                    <span className={`${ui.mono} ${styles.cardPercent}`}>
+                    <span className={ui.metaMono}>
                       {Math.round(fraction * 100)} %
                     </span>
                   </div>

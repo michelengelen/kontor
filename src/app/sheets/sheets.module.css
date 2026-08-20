@@ -1,9 +1,3 @@
-.main {
-  width: min(960px, 100%);
-  margin: 0 auto;
-  padding: 24px 16px 64px;
-}
-
 /* Create form */
 
 .createForm {
@@ -12,25 +6,8 @@
 }
 
 .monthTrigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
   flex: 1;
   max-width: 320px;
-  padding: 10px 12px;
-  border: 1px solid var(--baseline);
-  border-radius: 10px;
-  background: var(--surface);
-  font-family: var(--font-mono);
-  font-size: 15px;
-  cursor: pointer;
-  text-align: left;
-}
-
-.monthTrigger:disabled {
-  opacity: 0.55;
-  cursor: default;
 }
 
 .monthItem {
@@ -62,12 +39,6 @@
   justify-self: end;
 }
 
-.helper {
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 8px;
-}
-
 /* Year folders */
 
 .years {
@@ -75,12 +46,6 @@
   flex-direction: column;
   gap: 12px;
   margin-top: 24px;
-}
-
-.yearBox {
-  border: 1px solid var(--hairline);
-  border-radius: 12px;
-  background: var(--surface);
 }
 
 .yearHeader {
@@ -95,38 +60,9 @@
   text-align: left;
 }
 
-.chevron {
-  flex-shrink: 0;
-  color: var(--muted);
-  transition: transform 0.2s ease;
-}
-
-.chevronClosed {
-  composes: chevron;
-  transform: rotate(-90deg);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .chevron {
-    transition: none;
-  }
-}
-
 .yearName {
   font-size: 17px;
   font-weight: 600;
-}
-
-.leader {
-  flex: 1;
-  border-bottom: 1px dotted var(--baseline);
-  transform: translateY(-3px);
-  min-width: 16px;
-}
-
-.yearMeta {
-  font-size: 13px;
-  color: var(--muted);
 }
 
 .yearBody {
@@ -197,22 +133,8 @@
 }
 
 .cardMeter {
-  height: 7px;
-  border-radius: 4px;
-  background: var(--accent-soft);
+  --meter-h: 7px;
   margin: 12px 0 9px;
-  overflow: hidden;
-}
-
-.cardMeterFill {
-  height: 100%;
-  border-radius: 4px;
-  background: var(--accent);
-}
-
-.cardMeterDone {
-  composes: cardMeterFill;
-  background: var(--good);
 }
 
 .cardFoot {
@@ -237,40 +159,4 @@
   gap: 5px;
   font-size: 13px;
   color: var(--good);
-}
-
-.cardPercent {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-/* Empty state */
-
-.emptyState {
-  max-width: 480px;
-  margin: 48px auto 0;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 0 8px;
-}
-
-.emptyState > hr {
-  width: 64px;
-}
-
-.emptyCopy {
-  font-size: 17px;
-  line-height: 1.5;
-}
-
-.emptySub {
-  font-size: 14px;
-  color: var(--ink-2);
-}
-
-.emptyLink {
-  color: var(--accent);
 }

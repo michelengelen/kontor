@@ -77,7 +77,7 @@ export function CategoryManager({
                   <span className={styles.count}>
                     {cat.count} {cat.count === 1 ? "Eintrag" : "Einträge"}
                   </span>
-                  <span className={styles.leader} aria-hidden />
+                  <span className={ui.leader} aria-hidden />
                   <Menu.Root>
                     <Menu.Trigger
                       className={ui.menuTrigger}
@@ -144,7 +144,7 @@ export function CategoryManager({
                     {colorError ? (
                       <p className={ui.error}>{colorError}</p>
                     ) : null}
-                    <p className={styles.note}>
+                    <p className={ui.helper}>
                       8 feste Slots — als Set colorblind-geprüft. Vergebene
                       Farben sind gedimmt.
                     </p>
@@ -172,13 +172,13 @@ export function CategoryManager({
               </button>
             </form>
           ) : (
-            <p className={styles.footnote}>Alle 8 Farben sind vergeben.</p>
+            <p className={ui.helper}>Alle 8 Farben sind vergeben.</p>
           )}
           {createState && "error" in createState ? (
             <p className={ui.error}>{createState.error}</p>
           ) : null}
 
-          <Dialog.Close className={styles.done}>Fertig</Dialog.Close>
+          <Dialog.Close className={`${ui.buttonPrimaryWide} ${styles.done}`}>Fertig</Dialog.Close>
         </Dialog.Popup>
       </Dialog.Portal>
 

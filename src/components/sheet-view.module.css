@@ -42,20 +42,6 @@
   margin-bottom: 20px;
 }
 
-.meterTrack {
-  height: 8px;
-  border-radius: 4px;
-  background: var(--accent-soft);
-  overflow: hidden;
-}
-
-.meterFill {
-  height: 100%;
-  border-radius: 4px;
-  background: var(--accent);
-  transition: width 0.3s ease;
-}
-
 .topMeterLine {
   font-size: 13px;
   color: var(--ink-2);
@@ -71,9 +57,7 @@
 }
 
 .group {
-  border: 1px solid var(--hairline);
-  border-radius: 12px;
-  background: var(--surface);
+  composes: card from "./ui.module.css";
   overflow: hidden;
 }
 
@@ -90,27 +74,11 @@
   font-size: 15px;
 }
 
-.chevron {
-  flex-shrink: 0;
-  color: var(--muted);
-  transition: transform 0.2s ease;
-}
-
-.chevronClosed {
-  composes: chevron;
-  transform: rotate(-90deg);
-}
-
 .groupName {
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.groupCount {
-  font-size: 12px;
-  color: var(--muted);
 }
 
 .groupSum {
@@ -125,14 +93,7 @@
 }
 
 .groupMeter {
-  height: 3px;
-  background: var(--accent-soft);
-}
-
-.groupMeterFill {
-  height: 100%;
-  background: var(--accent);
-  transition: width 0.3s ease;
+  --meter-h: 3px;
 }
 
 .groupBody {
@@ -199,13 +160,6 @@
   text-overflow: ellipsis;
 }
 
-.leader {
-  flex: 1;
-  border-bottom: 1px dotted var(--baseline);
-  transform: translateY(-4px);
-  min-width: 16px;
-}
-
 .rowAmount {
   font-size: 15px;
 }
@@ -224,9 +178,7 @@
 /* Summary card (tablet) */
 
 .summaryCard {
-  background: var(--surface);
-  border: 1px solid var(--hairline);
-  border-radius: 12px;
+  composes: card from "./ui.module.css";
   padding: 16px;
 }
 
@@ -261,9 +213,7 @@
 /* Chart */
 
 .chartCard {
-  background: var(--surface);
-  border: 1px solid var(--hairline);
-  border-radius: 12px;
+  composes: card from "./ui.module.css";
   padding: 16px;
 }
 

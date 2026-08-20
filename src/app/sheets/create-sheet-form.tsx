@@ -28,7 +28,7 @@ export function CreateSheetForm({ options }: { options: MonthOption[] }) {
           onValueChange={(v) => setMonth(v as string)}
         >
           <Select.Trigger
-            className={styles.monthTrigger}
+            className={`${ui.selectTriggerMono} ${styles.monthTrigger}`}
             aria-label="Monat"
             disabled={!firstFree}
           >
@@ -70,7 +70,7 @@ export function CreateSheetForm({ options }: { options: MonthOption[] }) {
           {pending ? "Anlegen…" : "Anlegen"}
         </button>
       </form>
-      <p className={styles.helper}>
+      <p className={ui.helper}>
         Anlegen ab dem aktuellen Monat, bis zu 3 Monate im Voraus
       </p>
       {state && "error" in state ? (

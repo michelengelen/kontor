@@ -1,24 +1,3 @@
-.main {
-  width: min(960px, 100%);
-  margin: 0 auto;
-  padding: 24px 16px 64px;
-}
-
-.head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.title {
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 1.2;
-  margin-top: 2px;
-}
-
 .layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -70,13 +49,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.leader {
-  flex: 1;
-  border-bottom: 1px dotted var(--baseline);
-  transform: translateY(-3px);
-  min-width: 16px;
 }
 
 .entryAmount {
@@ -159,9 +131,7 @@
 /* Side panel (tablet) */
 
 .panel {
-  background: var(--surface);
-  border: 1px solid var(--hairline);
-  border-radius: 12px;
+  composes: card from "../../components/ui.module.css";
   padding: 16px;
 }
 
@@ -182,11 +152,6 @@
 
 .panelName {
   flex: 1;
-}
-
-.panelCount {
-  font-size: 12px;
-  color: var(--muted);
 }
 
 .panelButton {
@@ -219,31 +184,4 @@
 
 .panelLink:hover {
   color: var(--ink);
-}
-
-/* Empty state */
-
-.emptyState {
-  max-width: 480px;
-  margin: 48px auto 0;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 0 8px;
-}
-
-.emptyState > hr {
-  width: 64px;
-}
-
-.emptyCopy {
-  font-size: 17px;
-  line-height: 1.5;
-}
-
-.emptySub {
-  font-size: 14px;
-  color: var(--muted);
 }

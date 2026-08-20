@@ -86,9 +86,9 @@ export function SheetView({
     <div className={styles.layout}>
       <div className={styles.main}>
         <div className={styles.topMeter}>
-          <div className={styles.meterTrack}>
+          <div className={ui.meterTrack}>
             <div
-              className={styles.meterFill}
+              className={ui.meterFill}
               style={{ width: `${fraction * 100}%` }}
             />
           </div>
@@ -123,9 +123,9 @@ export function SheetView({
           <p className={`${ui.mono} ${styles.summaryValue}`}>
             {formatCents(total - paid)}
           </p>
-          <div className={styles.meterTrack}>
+          <div className={ui.meterTrack}>
             <div
-              className={styles.meterFill}
+              className={ui.meterFill}
               style={{ width: `${fraction * 100}%` }}
             />
           </div>
@@ -180,7 +180,7 @@ function CategoryGroup({
       >
         <ChevronDown
           size={16}
-          className={open ? styles.chevron : styles.chevronClosed}
+          className={open ? ui.chevron : ui.chevronClosed}
         />
         <span
           className={ui.chipDot}
@@ -190,11 +190,11 @@ function CategoryGroup({
         {settled ? (
           <Checkmark size={16} className={styles.good} aria-label="abgeschlossen" />
         ) : (
-          <span className={`${ui.mono} ${styles.groupCount}`}>
+          <span className={ui.metaMono}>
             {paidCount}/{group.rows.length}
           </span>
         )}
-        <span className={styles.leader} aria-hidden />
+        <span className={ui.leader} aria-hidden />
         <span
           className={`${ui.mono} ${settled ? styles.groupSumSettled : styles.groupSum}`}
         >
@@ -203,9 +203,9 @@ function CategoryGroup({
       </button>
 
       {open && !settled ? (
-        <div className={styles.groupMeter}>
+        <div className={`${ui.meterTrack} ${styles.groupMeter}`}>
           <div
-            className={styles.groupMeterFill}
+            className={ui.meterFill}
             style={{ width: `${(group.paidCents / group.sumCents) * 100}%` }}
           />
         </div>
@@ -235,7 +235,7 @@ function CategoryGroup({
               {row.paymentSource ? (
                 <span className={ui.tag}>{row.paymentSource}</span>
               ) : null}
-              <span className={styles.leader} aria-hidden />
+              <span className={ui.leader} aria-hidden />
               <span className={`${ui.mono} ${styles.rowAmount}`}>
                 {formatCents(row.amountCents)}
               </span>
@@ -295,7 +295,7 @@ function CategoryChart({ groups, total }: { groups: Group[]; total: number }) {
               style={{ background: g.color ? colorVar(g.color) : "var(--cat-none)" }}
             />
             <span className={styles.legendName}>{g.name}</span>
-            <span className={styles.leader} aria-hidden />
+            <span className={ui.leader} aria-hidden />
             <span className={`${ui.mono} ${styles.legendValue}`}>
               {formatCents(g.sumCents)}
             </span>

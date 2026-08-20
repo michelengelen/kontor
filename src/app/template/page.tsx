@@ -60,11 +60,11 @@ export default async function TemplatePage() {
 
   if (entries.length === 0) {
     return (
-      <main className={styles.main}>
-        <div className={styles.emptyState}>
+      <main className={ui.page}>
+        <div className={ui.emptyState}>
           <hr className={ui.doubleRule} />
           <p className={ui.eyebrow}>Noch keine Vorlage</p>
-          <p className={styles.emptyCopy}>
+          <p className={ui.emptyCopy}>
             Lege deine wiederkehrenden Ausgaben an — jedes Monatsblatt wird
             daraus erstellt.
           </p>
@@ -77,7 +77,7 @@ export default async function TemplatePage() {
             categories={cats}
             sources={sources}
           />
-          <p className={styles.emptySub}>z.&nbsp;B. Miete, Strom, Internet</p>
+          <p className={ui.emptySub}>z.&nbsp;B. Miete, Strom, Internet</p>
           <hr className={ui.doubleRule} />
         </div>
       </main>
@@ -85,11 +85,11 @@ export default async function TemplatePage() {
   }
 
   return (
-    <main className={styles.main}>
-      <header className={styles.head}>
+    <main className={ui.page}>
+      <header className={ui.pageHead}>
         <div>
           <p className={ui.eyebrow}>Vorlage</p>
-          <h1 className={styles.title}>Wiederkehrend</h1>
+          <h1 className={ui.pageTitle}>Wiederkehrend</h1>
         </div>
         <EntryDialog
           trigger={
@@ -122,7 +122,7 @@ export default async function TemplatePage() {
                       }}
                     />
                     <span className={styles.entryName}>{entry.name}</span>
-                    <span className={styles.leader} aria-hidden />
+                    <span className={ui.leader} aria-hidden />
                     <span className={`${ui.mono} ${styles.entryAmount}`}>
                       {formatCents(entry.amountCents)}
                     </span>
@@ -138,7 +138,7 @@ export default async function TemplatePage() {
             })}
             <li className={styles.footerRow}>
               <span className={ui.eyebrow}>Ø / Monat</span>
-              <span className={styles.leader} aria-hidden />
+              <span className={ui.leader} aria-hidden />
               <span className={`${ui.mono} ${styles.footerSum}`}>
                 {formatCents(monthlySum)}
               </span>
@@ -199,7 +199,7 @@ export default async function TemplatePage() {
                     style={{ background: colorVar(cat.color) }}
                   />
                   <span className={styles.panelName}>{cat.name}</span>
-                  <span className={`${ui.mono} ${styles.panelCount}`}>
+                  <span className={ui.metaMono}>
                     {cat.count}
                   </span>
                 </li>

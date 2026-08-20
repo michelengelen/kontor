@@ -60,7 +60,7 @@ export function SourceManager({
                 {source.isDefault ? (
                   <span className={ui.tagAccent}>Standard</span>
                 ) : null}
-                <span className={styles.leader} aria-hidden />
+                <span className={ui.leader} aria-hidden />
                 <span className={styles.count}>
                   {source.count} {source.count === 1 ? "Eintrag" : "Einträge"}
                 </span>
@@ -114,12 +114,12 @@ export function SourceManager({
             <p className={ui.error}>{createState.error}</p>
           ) : null}
 
-          <p className={styles.footnote}>
+          <p className={ui.helper}>
             Die Standardquelle wird an Posten nicht angezeigt — nur
             Abweichungen (z.&nbsp;B. PAYPAL) erscheinen als Tag.
           </p>
 
-          <Dialog.Close className={styles.done}>Fertig</Dialog.Close>
+          <Dialog.Close className={`${ui.buttonPrimaryWide} ${styles.done}`}>Fertig</Dialog.Close>
         </Dialog.Popup>
       </Dialog.Portal>
 

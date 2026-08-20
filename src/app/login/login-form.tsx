@@ -25,7 +25,7 @@ export function LoginForm() {
         />
       </div>
       {state?.error ? <p className={ui.error}>{state.error}</p> : null}
-      <button type="submit" className={styles.submit} disabled={pending}>
+      <button type="submit" className={`${ui.buttonPrimaryWide} ${styles.submit}`} disabled={pending}>
         {pending ? "Anmelden…" : "Anmelden"}
       </button>
     </form>

@@ -180,7 +180,7 @@ function EntryForm({
             value={startMonth}
             onValueChange={(v) => setStartMonth(v as string)}
           >
-            <Select.Trigger className={styles.monthTrigger}>
+            <Select.Trigger className={ui.selectTriggerMono}>
               <Select.Value />
               <Select.Icon>
                 <ChevronDown size={16} />
@@ -207,7 +207,7 @@ function EntryForm({
               </Select.Positioner>
             </Select.Portal>
           </Select.Root>
-          <p className={styles.helper}>
+          <p className={ui.helper}>
             Erster Monat der Serie — taktet Quartal, Halbjahr &amp; Jährlich
           </p>
         </div>
