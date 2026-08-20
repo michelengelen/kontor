@@ -4,7 +4,7 @@ import { useActionState, useOptimistic, useState, useTransition } from "react";
 import { Checkbox } from "@base-ui/react/checkbox";
 import { Dialog } from "@base-ui/react/dialog";
 import { Input } from "@base-ui/react/input";
-import { Checkmark, ChevronDown, Edit, TrashCan } from "@carbon/icons-react";
+import { Checkmark, ChevronDown, TrashCan } from "@carbon/icons-react";
 import { deleteAdhocEntry, togglePaid, updateEntryAmount } from "@/app/sheets/actions";
 import type { FormState } from "@/app/template/actions";
 import { colorVar } from "@/lib/colors";
@@ -294,9 +294,6 @@ function CategoryGroup({
                 <span className={ui.tag}>{row.paymentSource}</span>
               ) : null}
               <span className={ui.leader} aria-hidden />
-              <span className={`${ui.mono} ${styles.rowAmount}`}>
-                {formatCents(row.amountCents)}
-              </span>
               <EditAmountDialog row={row} />
               {row.source === "adhoc" ? (
                 <ConfirmDialog
@@ -389,10 +386,10 @@ function EditAmountDialog({ row }: { row: SheetRow }) {
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger
-        className={ui.buttonGhost}
+        className={`${ui.mono} ${styles.rowAmount} ${styles.amountTrigger}`}
         aria-label={`Betrag ändern für ${row.name}`}
       >
-        <Edit size={16} />
+        {formatCents(row.amountCents)}
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Backdrop className={ui.backdrop} />

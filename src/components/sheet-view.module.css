@@ -169,6 +169,29 @@
   font-size: 15px;
 }
 
+/* The amount doubles as the edit trigger */
+.amountTrigger {
+  background: none;
+  border: none;
+  padding: 2px 0;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: underline dotted transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.15s ease, color 0.15s ease;
+}
+
+.amountTrigger:hover {
+  text-decoration-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amountTrigger {
+    transition: none;
+  }
+}
+
 .rowName,
 .rowAmount {
   transition: color 0.25s ease;
