@@ -93,6 +93,11 @@
 
 .groupMeter {
   --meter-h: 3px;
+  border-radius: 0;
+}
+
+.groupBodyInner {
+  display: block;
 }
 
 .groupBody {
@@ -106,7 +111,7 @@
   grid-template-rows: 0fr;
 }
 
-.groupBody > ul {
+.groupBody > div {
   overflow: hidden;
   min-height: 0;
 }

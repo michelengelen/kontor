@@ -253,16 +253,20 @@ function CategoryGroup({
         </span>
       </button>
 
-      {open && !settled ? (
+      <div className={open ? styles.groupBody : styles.groupBodyClosed}>
+        <div className={styles.groupBodyInner}>
         <div className={`${ui.meterTrack} ${styles.groupMeter}`}>
           <div
             className={ui.meterFill}
-            style={{ width: `${(group.paidCents / group.sumCents) * 100}%` }}
+            style={{
+              width: `${
+                group.sumCents > 0
+                  ? (group.paidCents / group.sumCents) * 100
+                  : 0
+              }%`,
+            }}
           />
         </div>
-      ) : null}
-
-      <div className={open ? styles.groupBody : styles.groupBodyClosed}>
         <ul className={styles.rows}>
           {group.rows.map((row) => (
             <li
@@ -311,6 +315,7 @@ function CategoryGroup({
             </li>
           ))}
         </ul>
+        </div>
       </div>
     </section>
   );
