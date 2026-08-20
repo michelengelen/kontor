@@ -128,7 +128,9 @@ function EntryForm({
     return result;
   }, undefined);
 
-  const startMonth = toStoredYm(startMonthNum);
+  const monthly = cadence === "monthly";
+  const currentMonth = parseYm(currentYm()).month;
+  const startMonth = toStoredYm(monthly ? currentMonth : startMonthNum);
 
   return (
     <>
@@ -179,22 +181,12 @@ function EntryForm({
         </div>
 
         <div className={ui.field}>
-          <span className={ui.label}>Rhythmus</span>
-          <ChoiceChips
-            options={CADENCES.map((c) => ({ value: c.key, label: c.label }))}
-            value={cadence}
-            onChange={(v) => setCadence(v as Cadence)}
-          />
-        </div>
-      </div>
-
-      {cadence !== "monthly" ? (
-        <div className={ui.field}>
           <span className={ui.label}>Startmonat</span>
           <Select.Root
             items={MONTHS.map((m) => ({ value: m, label: monthName(m) }))}
-            value={startMonthNum}
+            value={monthly ? currentMonth : startMonthNum}
             onValueChange={(v) => setStartMonthNum(v as number)}
+            disabled={monthly}
           >
             <Select.Trigger className={ui.selectTrigger}>
               <Select.Value />
@@ -223,12 +215,24 @@ function EntryForm({
               </Select.Positioner>
             </Select.Portal>
           </Select.Root>
-          <p className={ui.helper}>
-            Taktet die Serie — erscheint auf den Blättern im{" "}
-            {formatMonthList(occurrenceMonths(cadence, startMonth))}
-          </p>
         </div>
-      ) : null}
+      </div>
+
+      <div className={ui.field}>
+        <span className={ui.label}>Rhythmus</span>
+        <ChoiceChips
+          options={CADENCES.map((c) => ({ value: c.key, label: c.label }))}
+          value={cadence}
+          onChange={(v) => setCadence(v as Cadence)}
+        />
+        <p className={ui.helper}>
+          {monthly
+            ? "Erscheint auf jedem Monatsblatt"
+            : `Erscheint auf den Blättern im ${formatMonthList(
+                occurrenceMonths(cadence, startMonth),
+              )}`}
+        </p>
+      </div>
 
       <div className={ui.field}>
         <span className={ui.label}>Kategorie</span>

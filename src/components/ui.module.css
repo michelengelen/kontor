@@ -443,6 +443,11 @@
   text-align: left;
 }
 
+.selectTrigger:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
 .selectTriggerMono {
   composes: selectTrigger;
   padding: 10px 12px;
