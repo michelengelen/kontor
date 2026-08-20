@@ -248,6 +248,12 @@
   position: fixed;
   inset: 0;
   background: rgba(11, 11, 11, 0.5);
+  transition: opacity 0.2s ease;
+}
+
+.backdrop[data-starting-style],
+.backdrop[data-ending-style] {
+  opacity: 0;
 }
 
 .popup {
@@ -262,6 +268,13 @@
   border: 1px solid var(--hairline);
   border-radius: 16px;
   padding: 22px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.popup[data-starting-style],
+.popup[data-ending-style] {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.97);
 }
 
 @media (max-width: 699px) {
@@ -277,6 +290,12 @@
     border-right: none;
     border-bottom: none;
     padding-top: 10px;
+  }
+
+  .popup[data-starting-style],
+  .popup[data-ending-style] {
+    opacity: 1;
+    transform: translateY(100%);
   }
 
   .popup::before {
@@ -309,6 +328,12 @@
 
   .popupCenter::before {
     content: none;
+  }
+
+  .popupCenter[data-starting-style],
+  .popupCenter[data-ending-style] {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.97);
   }
 }
 
@@ -379,6 +404,8 @@
 }
 
 .tipPopup {
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  transform-origin: var(--transform-origin);
   background: var(--surface);
   border: 1px solid var(--baseline);
   border-radius: 8px;
@@ -429,6 +456,8 @@
 }
 
 .selectPopup {
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  transform-origin: var(--transform-origin);
   min-width: var(--anchor-width, 180px);
   background: var(--surface);
   border: 1px solid var(--hairline);
@@ -542,6 +571,8 @@
 }
 
 .menuPopup {
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  transform-origin: var(--transform-origin);
   min-width: 160px;
   background: var(--surface);
   border: 1px solid var(--hairline);
@@ -597,4 +628,45 @@
 .doubleRule {
   border: none;
   border-top: 3px double var(--baseline);
+}
+
+.selectPopup[data-starting-style],
+.selectPopup[data-ending-style],
+.menuPopup[data-starting-style],
+.menuPopup[data-ending-style],
+.tipPopup[data-starting-style],
+.tipPopup[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* Card entrance on mount */
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.card {
+  animation: cardIn 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+
+  .backdrop,
+  .popup,
+  .selectPopup,
+  .menuPopup,
+  .tipPopup {
+    transition: none;
+  }
 }

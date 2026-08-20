@@ -12,8 +12,8 @@ import {
   type FormState,
 } from "@/app/template/actions";
 import { CADENCES } from "@/lib/cadence";
-import { currentYm, formatMonthList, formatYmLong } from "@/lib/dates";
-import { addMonths, occurrenceMonths, type Cadence } from "@/lib/occurrences";
+import { currentYm, formatMonthList, monthName, parseYm } from "@/lib/dates";
+import { occurrenceMonths, ymFrom, type Cadence } from "@/lib/occurrences";
 import type { Category, PaymentSource, TemplateEntry } from "@/db/schema";
 import { ChoiceChips } from "./chips";
 import ui from "./ui.module.css";
@@ -75,12 +75,14 @@ export function EntryDialog({
   );
 }
 
-function monthOptions(selected: string): string[] {
-  const start = addMonths(currentYm(), -24);
-  const options: string[] = [];
-  for (let i = 0; i < 38; i++) options.push(addMonths(start, i));
-  if (!options.includes(selected)) options.unshift(selected);
-  return options;
+const MONTHS = Array.from({ length: 12 }, (_, i) => i + 1);
+
+// The year is irrelevant for phasing (modulo 12); store the most
+// recent year in which the picked month is not in the future, so
+// entries always appear on current sheets.
+function toStoredYm(month: number): string {
+  const { year, month: cur } = parseYm(currentYm());
+  return ymFrom(month <= cur ? year : year - 1, month);
 }
 
 function EntryForm({
@@ -104,8 +106,8 @@ function EntryForm({
     undefined,
   );
   const [cadence, setCadence] = useState<Cadence>(entry?.cadence ?? "monthly");
-  const [startMonth, setStartMonth] = useState(
-    entry?.startMonth ?? currentYm(),
+  const [startMonthNum, setStartMonthNum] = useState(
+    parseYm(entry?.startMonth ?? currentYm()).month,
   );
   const [categoryId, setCategoryId] = useState<number | null>(
     entry?.categoryId ?? null,
@@ -126,7 +128,7 @@ function EntryForm({
     return result;
   }, undefined);
 
-  const months = monthOptions(startMonth);
+  const startMonth = toStoredYm(startMonthNum);
 
   return (
     <>
@@ -177,13 +179,24 @@ function EntryForm({
         </div>
 
         <div className={ui.field}>
-          <span className={ui.label}>Ab Monat</span>
+          <span className={ui.label}>Rhythmus</span>
+          <ChoiceChips
+            options={CADENCES.map((c) => ({ value: c.key, label: c.label }))}
+            value={cadence}
+            onChange={(v) => setCadence(v as Cadence)}
+          />
+        </div>
+      </div>
+
+      {cadence !== "monthly" ? (
+        <div className={ui.field}>
+          <span className={ui.label}>Startmonat</span>
           <Select.Root
-            items={months.map((ym) => ({ value: ym, label: formatYmLong(ym) }))}
-            value={startMonth}
-            onValueChange={(v) => setStartMonth(v as string)}
+            items={MONTHS.map((m) => ({ value: m, label: monthName(m) }))}
+            value={startMonthNum}
+            onValueChange={(v) => setStartMonthNum(v as number)}
           >
-            <Select.Trigger className={ui.selectTriggerMono}>
+            <Select.Trigger className={ui.selectTrigger}>
               <Select.Value />
               <Select.Icon>
                 <ChevronDown size={16} />
@@ -193,16 +206,16 @@ function EntryForm({
               <Select.Positioner sideOffset={4}>
                 <Select.Popup className={ui.selectPopup}>
                   <Select.List>
-                    {months.map((ym) => (
+                    {MONTHS.map((m) => (
                       <Select.Item
-                        key={ym}
-                        value={ym}
-                        className={styles.monthItem}
+                        key={m}
+                        value={m}
+                        className={ui.selectItem}
                       >
                         <Select.ItemIndicator>
                           <Checkmark size={14} />
                         </Select.ItemIndicator>
-                        <Select.ItemText>{formatYmLong(ym)}</Select.ItemText>
+                        <Select.ItemText>{monthName(m)}</Select.ItemText>
                       </Select.Item>
                     ))}
                   </Select.List>
@@ -211,25 +224,11 @@ function EntryForm({
             </Select.Portal>
           </Select.Root>
           <p className={ui.helper}>
-            Erster Monat der Serie — taktet Quartal, Halbjahr &amp; Jährlich
-          </p>
-        </div>
-      </div>
-
-      <div className={ui.field}>
-        <span className={ui.label}>Rhythmus</span>
-        <ChoiceChips
-          options={CADENCES.map((c) => ({ value: c.key, label: c.label }))}
-          value={cadence}
-          onChange={(v) => setCadence(v as Cadence)}
-        />
-        {cadence !== "monthly" ? (
-          <p className={ui.helper}>
-            Erscheint auf den Blättern im{" "}
+            Taktet die Serie — erscheint auf den Blättern im{" "}
             {formatMonthList(occurrenceMonths(cadence, startMonth))}
           </p>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
 
       <div className={ui.field}>
         <span className={ui.label}>Kategorie</span>
