@@ -34,12 +34,16 @@ const percentFormatter = new Intl.NumberFormat("de-DE", {
   maximumFractionDigits: 0,
 });
 
+type Segment = { key: string; name: string; color: string; value: number };
+
 export function SheetView({
   rows,
   categoryOrder,
+  defaultSource,
 }: {
   rows: SheetRow[];
   categoryOrder: number[];
+  defaultSource: string;
 }) {
   const [optimisticRows, applyToggle] = useOptimistic(
     rows,
@@ -80,7 +84,28 @@ export function SheetView({
     });
   }
 
-  const chartGroups = [...groups].sort((a, b) => b.sumCents - a.sumCents);
+  const categorySegments: Segment[] = [...groups]
+    .sort((a, b) => b.sumCents - a.sumCents)
+    .map((g) => ({
+      key: String(g.key),
+      name: g.name,
+      color: g.color ? colorVar(g.color) : "var(--cat-none)",
+      value: g.sumCents,
+    }));
+
+  const bySource = new Map<string, number>();
+  for (const row of optimisticRows) {
+    const name = row.paymentSource ?? defaultSource;
+    bySource.set(name, (bySource.get(name) ?? 0) + row.amountCents);
+  }
+  const sourceSegments: Segment[] = [...bySource.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([name, value], index) => ({
+      key: name,
+      name,
+      color: index < 4 ? `var(--src-${index + 1})` : "var(--cat-none)",
+      value,
+    }));
 
   return (
     <div className={styles.layout}>
@@ -112,7 +137,20 @@ export function SheetView({
 
         {groups.length > 0 ? (
           <section className={`${styles.chartCard} ${styles.chartMobile}`}>
-            <CategoryChart groups={chartGroups} total={total} />
+            <SegmentChart
+              title="Kategorien"
+              segments={categorySegments}
+              total={total}
+            />
+          </section>
+        ) : null}
+        {sourceSegments.length > 1 ? (
+          <section className={`${styles.chartCard} ${styles.chartMobile}`}>
+            <SegmentChart
+              title="Bezahlt von"
+              segments={sourceSegments}
+              total={total}
+            />
           </section>
         ) : null}
       </div>
@@ -149,7 +187,20 @@ export function SheetView({
 
         {groups.length > 0 ? (
           <section className={styles.chartCard}>
-            <CategoryChart groups={chartGroups} total={total} />
+            <SegmentChart
+              title="Kategorien"
+              segments={categorySegments}
+              total={total}
+            />
+          </section>
+        ) : null}
+        {sourceSegments.length > 1 ? (
+          <section className={styles.chartCard}>
+            <SegmentChart
+              title="Bezahlt von"
+              segments={sourceSegments}
+              total={total}
+            />
           </section>
         ) : null}
       </aside>
@@ -265,42 +316,48 @@ function CategoryGroup({
   );
 }
 
-function CategoryChart({ groups, total }: { groups: Group[]; total: number }) {
+// Stacked bar + legend for one part-to-whole dimension.
+function SegmentChart({
+  title,
+  segments,
+  total,
+}: {
+  title: string;
+  segments: Segment[];
+  total: number;
+}) {
   if (total === 0) return null;
   return (
     <div>
-      <p className={ui.eyebrow}>Kategorien</p>
+      <p className={ui.eyebrow}>{title}</p>
       <div
         className={styles.chartBar}
         role="img"
-        aria-label="Ausgaben nach Kategorie"
+        aria-label={`Ausgaben nach ${title}`}
       >
-        {groups.map((g) => (
+        {segments.map((s) => (
           <div
-            key={g.key}
+            key={s.key}
             className={styles.chartSegment}
             style={{
-              width: `${(g.sumCents / total) * 100}%`,
-              background: g.color ? colorVar(g.color) : "var(--cat-none)",
+              width: `${(s.value / total) * 100}%`,
+              background: s.color,
             }}
-            title={`${g.name}: ${formatCents(g.sumCents)}`}
+            title={`${s.name}: ${formatCents(s.value)}`}
           />
         ))}
       </div>
       <ul className={styles.legend}>
-        {groups.map((g) => (
-          <li key={g.key} className={styles.legendRow}>
-            <span
-              className={ui.chipDot}
-              style={{ background: g.color ? colorVar(g.color) : "var(--cat-none)" }}
-            />
-            <span className={styles.legendName}>{g.name}</span>
+        {segments.map((s) => (
+          <li key={s.key} className={styles.legendRow}>
+            <span className={ui.chipDot} style={{ background: s.color }} />
+            <span className={styles.legendName}>{s.name}</span>
             <span className={ui.leader} aria-hidden />
             <span className={`${ui.mono} ${styles.legendValue}`}>
-              {formatCents(g.sumCents)}
+              {formatCents(s.value)}
             </span>
             <span className={`${ui.mono} ${styles.legendPercent}`}>
-              {percentFormatter.format(g.sumCents / total)}
+              {percentFormatter.format(s.value / total)}
             </span>
           </li>
         ))}

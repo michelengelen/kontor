@@ -224,7 +224,7 @@ export default async function TemplatePage() {
             <CategoryManager
               categories={categoriesWithCount}
               triggerClass={styles.panelButton}
-              trigger={<>+ Neue Kategorie</>}
+              trigger={<>Kategorien bearbeiten</>}
             />
           </section>
           <SourceManager

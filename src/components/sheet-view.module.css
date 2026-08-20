@@ -33,13 +33,12 @@
 
 .main {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* Overall meter (mobile) */
-
-.topMeter {
-  margin-bottom: 20px;
-}
 
 .topMeterLine {
   font-size: 13px;
@@ -127,7 +126,7 @@
 .row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   padding: 13px 0;
   border-top: 1px solid var(--hairline);
 }

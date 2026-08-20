@@ -97,7 +97,11 @@ export default async function SheetPage({ params }: { params: Params }) {
         </div>
       </header>
 
-      <SheetView rows={rows} categoryOrder={cats.map((c) => c.id)} />
+      <SheetView
+        rows={rows}
+        categoryOrder={cats.map((c) => c.id)}
+        defaultSource={sources.find((s) => s.isDefault)?.name ?? "Bankkonto"}
+      />
     </main>
   );
 }

@@ -59,7 +59,7 @@
 .metaIcons {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 9px;
   color: var(--muted);
   flex-shrink: 0;
 }

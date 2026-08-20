@@ -25,6 +25,12 @@
   --cat-red: #e34948;
   --cat-none: #898781;
 
+  /* Payment-source chart: one blue ramp, ordered by share */
+  --src-1: #2a78d6;
+  --src-2: #9ec5f4;
+  --src-3: #104281;
+  --src-4: #6da7ec;
+
   --font-sans: var(--font-plex-sans), system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
@@ -55,6 +61,11 @@
     --cat-green: #008300;
     --cat-violet: #9085e9;
     --cat-red: #e66767;
+
+    --src-1: #3987e5;
+    --src-2: #9ec5f4;
+    --src-3: #184f95;
+    --src-4: #6da7ec;
   }
 }
 
