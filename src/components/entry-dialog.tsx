@@ -105,6 +105,10 @@ function EntryForm({
     },
     undefined,
   );
+  const [name, setName] = useState(entry?.name ?? "");
+  const [amount, setAmount] = useState(
+    entry ? (entry.amountCents / 100).toFixed(2).replace(".", ",") : "",
+  );
   const [cadence, setCadence] = useState<Cadence>(entry?.cadence ?? "monthly");
   const [startMonthNum, setStartMonthNum] = useState(
     parseYm(entry?.startMonth ?? currentYm()).month,
@@ -151,7 +155,8 @@ function EntryForm({
           autoComplete="off"
           data-1p-ignore
           required
-          defaultValue={entry?.name}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           className={ui.input}
         />
       </div>
@@ -169,11 +174,8 @@ function EntryForm({
               required
               inputMode="decimal"
               placeholder="42,50"
-              defaultValue={
-                entry
-                  ? (entry.amountCents / 100).toFixed(2).replace(".", ",")
-                  : ""
-              }
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
               className={`${ui.input} ${ui.mono}`}
             />
             <span className={ui.amountSuffix}>€</span>

@@ -406,6 +406,9 @@ function EditAmountDialog({ row }: { row: SheetRow }) {
 }
 
 function AmountForm({ row, onSaved }: { row: SheetRow; onSaved: () => void }) {
+  const [amount, setAmount] = useState(
+    (row.amountCents / 100).toFixed(2).replace(".", ","),
+  );
   const [state, action, pending] = useActionState<FormState, FormData>(
     async (prev, formData) => {
       const result = await updateEntryAmount(prev, formData);
@@ -430,7 +433,8 @@ function AmountForm({ row, onSaved }: { row: SheetRow; onSaved: () => void }) {
             required
             autoFocus
             inputMode="decimal"
-            defaultValue={(row.amountCents / 100).toFixed(2).replace(".", ",")}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
             className={`${ui.input} ${ui.mono}`}
           />
           <span className={ui.amountSuffix}>€</span>
