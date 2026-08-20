@@ -7,8 +7,10 @@ import { Close, Edit } from "@carbon/icons-react";
 import {
   createCategory,
   deleteCategory,
+  renameCategory,
   setCategoryColor,
   type CreateCategoryState,
+  type FormState,
 } from "@/app/template/actions";
 import { CATEGORY_COLORS, colorVar } from "@/lib/colors";
 import type { Category } from "@/db/schema";
@@ -39,6 +41,15 @@ export function CategoryManager({
   >(async (prev, formData) => {
     const result = await createCategory(prev, formData);
     if (result && "ok" in result) formRef.current?.reset();
+    return result;
+  }, undefined);
+
+  const [renameState, renameAction, renamePending] = useActionState<
+    FormState,
+    FormData
+  >(async (prev, formData) => {
+    const result = await renameCategory(prev, formData);
+    if (result && "ok" in result) setEditingId(null);
     return result;
   }, undefined);
 
@@ -98,7 +109,7 @@ export function CategoryManager({
                               );
                             }}
                           >
-                            Farbe ändern
+                            Bearbeiten
                           </Menu.Item>
                           <Menu.Item
                             className={ui.menuItemDanger}
@@ -124,7 +135,7 @@ export function CategoryManager({
                   >
                     <div className={styles.editHead}>
                       <p className={styles.editLabel}>
-                        Farbe für „{cat.name}“
+                        „{cat.name}“ bearbeiten
                       </p>
                       <button
                         type="button"
@@ -135,6 +146,28 @@ export function CategoryManager({
                         <Close size={16} />
                       </button>
                     </div>
+                    <form action={renameAction} className={styles.renameForm}>
+                      <input type="hidden" name="id" value={cat.id} />
+                      <input
+                        name="name"
+                        defaultValue={cat.name}
+                        required
+                        autoComplete="off"
+                        data-1p-ignore
+                        aria-label="Name der Kategorie"
+                        className={ui.input}
+                      />
+                      <button
+                        type="submit"
+                        className={ui.button}
+                        disabled={renamePending}
+                      >
+                        Umbenennen
+                      </button>
+                    </form>
+                    {renameState && "error" in renameState ? (
+                      <p className={ui.error}>{renameState.error}</p>
+                    ) : null}
                     <div className={styles.swatches}>
                       {CATEGORY_COLORS.map((slot) => {
                         const takenBy = categories.find(

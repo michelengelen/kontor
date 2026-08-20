@@ -43,6 +43,16 @@
   margin-bottom: 10px;
 }
 
+.renameForm {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.renameForm > input {
+  flex: 1;
+}
+
 /* One row of 12 on wide screens, two rows of 6 on narrow. */
 .swatches {
   display: grid;

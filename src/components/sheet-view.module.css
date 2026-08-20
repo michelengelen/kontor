@@ -10,7 +10,7 @@
 
 @media (min-width: 800px) {
   .layout {
-    grid-template-columns: 1fr 280px;
+    grid-template-columns: 1fr 320px;
     align-items: start;
   }
 

@@ -104,6 +104,37 @@ export async function togglePaid(id: number, paid: boolean): Promise<void> {
   revalidatePath("/sheets");
 }
 
+// The only mutable value on a frozen sheet: the amount. Name,
+// cadence, and category stay as snapshotted.
+export async function updateEntryAmount(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  await requireAuth();
+
+  const id = parseId(formData.get("id"));
+  const amountCents = parseAmountToCents(String(formData.get("amount") ?? ""));
+  if (!id) return { error: "Eintrag fehlt." };
+  if (amountCents == null || amountCents <= 0) {
+    return { error: "Gib einen gültigen Betrag ein." };
+  }
+
+  const [row] = await db
+    .update(sheetEntries)
+    .set({ amountCents })
+    .where(eq(sheetEntries.id, id))
+    .returning({ sheetId: sheetEntries.sheetId });
+  if (!row) return { error: "Eintrag nicht gefunden." };
+
+  const [sheet] = await db
+    .select()
+    .from(sheets)
+    .where(eq(sheets.id, row.sheetId));
+  if (sheet) revalidatePath(`/sheets/${sheet.year}/${sheet.month}`);
+  revalidatePath("/sheets");
+  return { ok: true };
+}
+
 export async function addAdhocEntry(
   _prev: FormState,
   formData: FormData,

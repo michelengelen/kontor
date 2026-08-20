@@ -34,14 +34,14 @@ export function AdhocDialog({
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger className={ui.button}>
-        <Add size={16} /> One-off
+        <Add size={16} /> Einmalig
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Backdrop className={ui.backdrop} />
         <Dialog.Popup className={ui.popup}>
           <p className={ui.dialogEyebrow}>Monatsblatt · {monthTitle}</p>
           <Dialog.Title className={ui.dialogTitle}>
-            One-off hinzufügen
+            Einmaligen Eintrag hinzufügen
           </Dialog.Title>
           <Dialog.Description className={ui.dialogSubtitle}>
             Gilt nur für dieses Blatt

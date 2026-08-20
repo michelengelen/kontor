@@ -87,7 +87,7 @@ export default async function SheetPage({ params }: { params: Params }) {
             title="Blatt löschen?"
             body={
               <>
-                Das Blatt für {title} wird mit allen Haken und One-offs
+                Das Blatt für {title} wird mit allen Haken und einmaligen Einträgen
                 entfernt. Das lässt sich nicht rückgängig machen.
               </>
             }

@@ -102,6 +102,31 @@ export async function createCategory(
   return { ok: true, id: row.id, color };
 }
 
+export async function renameCategory(
+  _prev: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  await requireAuth();
+
+  const id = parseId(formData.get("id"));
+  const name = String(formData.get("name") ?? "").trim();
+  if (!id) return { error: "Kategorie fehlt." };
+  if (!name) return { error: "Gib einen Namen ein." };
+
+  const existing = await db.select().from(categories);
+  if (
+    existing.some(
+      (c) => c.id !== id && c.name.toLowerCase() === name.toLowerCase(),
+    )
+  ) {
+    return { error: "Diese Kategorie existiert bereits." };
+  }
+
+  await db.update(categories).set({ name }).where(eq(categories.id, id));
+  revalidatePath("/", "layout");
+  return { ok: true };
+}
+
 export async function setCategoryColor(
   id: number,
   color: string,

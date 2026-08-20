@@ -1,9 +1,12 @@
 "use client";
 
-import { useOptimistic, useState, useTransition } from "react";
+import { useActionState, useOptimistic, useState, useTransition } from "react";
 import { Checkbox } from "@base-ui/react/checkbox";
-import { Checkmark, ChevronDown, TrashCan } from "@carbon/icons-react";
-import { deleteAdhocEntry, togglePaid } from "@/app/sheets/actions";
+import { Dialog } from "@base-ui/react/dialog";
+import { Input } from "@base-ui/react/input";
+import { Checkmark, ChevronDown, Edit, TrashCan } from "@carbon/icons-react";
+import { deleteAdhocEntry, togglePaid, updateEntryAmount } from "@/app/sheets/actions";
+import type { FormState } from "@/app/template/actions";
 import { colorVar } from "@/lib/colors";
 import { formatCents } from "@/lib/money";
 import { ConfirmDialog } from "./confirm-dialog";
@@ -129,7 +132,7 @@ export function SheetView({
           ))}
           {groups.length === 0 ? (
             <p className={styles.empty}>
-              Dieses Blatt ist leer. Füge einen One-off hinzu oder fülle
+              Dieses Blatt ist leer. Füge einen einmaligen Eintrag hinzu oder fülle
               zuerst die Vorlage.
             </p>
           ) : null}
@@ -285,7 +288,7 @@ function CategoryGroup({
               </Checkbox.Root>
               <span className={styles.rowName}>{row.name}</span>
               {row.source === "adhoc" ? (
-                <span className={ui.tag}>One-off</span>
+                <span className={ui.tag}>einmalig</span>
               ) : null}
               {row.paymentSource ? (
                 <span className={ui.tag}>{row.paymentSource}</span>
@@ -294,10 +297,11 @@ function CategoryGroup({
               <span className={`${ui.mono} ${styles.rowAmount}`}>
                 {formatCents(row.amountCents)}
               </span>
+              <EditAmountDialog row={row} />
               {row.source === "adhoc" ? (
                 <ConfirmDialog
                   trigger={<TrashCan size={16} />}
-                  title="One-off löschen?"
+                  title="Einmaligen Eintrag löschen?"
                   body={
                     <>
                       „{row.name}“ (
@@ -368,5 +372,82 @@ function SegmentChart({
         ))}
       </ul>
     </div>
+  );
+}
+
+// Betrag-only editor for a frozen sheet row. Name, cadence, and
+// category are deliberately not editable here.
+function EditAmountDialog({ row }: { row: SheetRow }) {
+  const [open, setOpen] = useState(false);
+  const [session, setSession] = useState(0);
+
+  function handleOpenChange(next: boolean) {
+    if (next) setSession((s) => s + 1);
+    setOpen(next);
+  }
+
+  return (
+    <Dialog.Root open={open} onOpenChange={handleOpenChange}>
+      <Dialog.Trigger
+        className={ui.buttonGhost}
+        aria-label={`Betrag ändern für ${row.name}`}
+      >
+        <Edit size={16} />
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Backdrop className={ui.backdrop} />
+        <Dialog.Popup className={ui.popupCenter}>
+          <Dialog.Title className={ui.dialogTitle}>Betrag ändern</Dialog.Title>
+          <Dialog.Description className={ui.dialogSubtitle}>
+            „{row.name}“ — nur der Betrag lässt sich anpassen
+          </Dialog.Description>
+          <AmountForm key={session} row={row} onSaved={() => setOpen(false)} />
+        </Dialog.Popup>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+}
+
+function AmountForm({ row, onSaved }: { row: SheetRow; onSaved: () => void }) {
+  const [state, action, pending] = useActionState<FormState, FormData>(
+    async (prev, formData) => {
+      const result = await updateEntryAmount(prev, formData);
+      if (result && "ok" in result) onSaved();
+      return result;
+    },
+    undefined,
+  );
+
+  return (
+    <form action={action}>
+      <input type="hidden" name="id" value={row.id} />
+      <div className={ui.field}>
+        <label className={ui.label} htmlFor={`amount-${row.id}`}>
+          Betrag
+        </label>
+        <div className={ui.amountWrap}>
+          <Input
+            id={`amount-${row.id}`}
+            name="amount"
+            autoComplete="off"
+            required
+            autoFocus
+            inputMode="decimal"
+            defaultValue={(row.amountCents / 100).toFixed(2).replace(".", ",")}
+            className={`${ui.input} ${ui.mono}`}
+          />
+          <span className={ui.amountSuffix}>€</span>
+        </div>
+      </div>
+      {state && "error" in state ? (
+        <p className={ui.error}>{state.error}</p>
+      ) : null}
+      <div className={ui.dialogActions}>
+        <Dialog.Close className={ui.button}>Abbrechen</Dialog.Close>
+        <button type="submit" className={ui.buttonPrimary} disabled={pending}>
+          {pending ? "Speichern…" : "Speichern"}
+        </button>
+      </div>
+    </form>
   );
 }
