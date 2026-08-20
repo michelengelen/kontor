@@ -240,7 +240,7 @@ function EntryForm({
           onChange={(v) => setCategoryId(v as number | null)}
           allowNone
           trailing={
-            categories.length < 8 ? (
+            categories.length < 12 ? (
               <button
                 type="button"
                 className={ui.chipBtnDashed}

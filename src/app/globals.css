@@ -23,6 +23,10 @@
   --cat-green: #008300;
   --cat-violet: #4a3aa7;
   --cat-red: #e34948;
+  --cat-cyan: #0f9bbd;
+  --cat-brown: #8f5f35;
+  --cat-lime: #74a10e;
+  --cat-slate: #5c7287;
   --cat-none: #898781;
 
   /* Payment-source chart: one blue ramp, ordered by share */
@@ -61,6 +65,10 @@
     --cat-green: #008300;
     --cat-violet: #9085e9;
     --cat-red: #e66767;
+    --cat-cyan: #2cb5d6;
+    --cat-brown: #a9784a;
+    --cat-lime: #8ab82a;
+    --cat-slate: #7e95aa;
 
     --src-1: #3987e5;
     --src-2: #9ec5f4;

@@ -1,5 +1,7 @@
-// Category colors are named slots from the validated chart palette.
-// CSS custom properties in globals.css hold the light and dark values.
+// Category colors are named slots; globals.css holds the light and
+// dark values. The first eight are the colorblind-validated chart
+// palette; the last four extend it for label variety — identity is
+// never carried by hue alone (names accompany every dot).
 export const CATEGORY_COLORS = [
   "blue",
   "orange",
@@ -9,6 +11,10 @@ export const CATEGORY_COLORS = [
   "green",
   "violet",
   "red",
+  "cyan",
+  "brown",
+  "lime",
+  "slate",
 ] as const;
 
 export type CategoryColor = (typeof CATEGORY_COLORS)[number];

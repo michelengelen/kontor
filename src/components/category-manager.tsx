@@ -145,8 +145,7 @@ export function CategoryManager({
                       <p className={ui.error}>{colorError}</p>
                     ) : null}
                     <p className={ui.helper}>
-                      8 feste Slots — als Set colorblind-geprüft. Vergebene
-                      Farben sind gedimmt.
+                      12 feste Slots — vergebene Farben sind durchgestrichen.
                     </p>
                   </div>
                 ) : null}
@@ -154,7 +153,7 @@ export function CategoryManager({
             ))}
           </ul>
 
-          {categories.length < 8 ? (
+          {categories.length < 12 ? (
             <form ref={formRef} action={createAction} className={styles.createForm}>
               <input
                 name="name"
@@ -172,7 +171,7 @@ export function CategoryManager({
               </button>
             </form>
           ) : (
-            <p className={ui.helper}>Alle 8 Farben sind vergeben.</p>
+            <p className={ui.helper}>Alle 12 Farben sind vergeben.</p>
           )}
           {createState && "error" in createState ? (
             <p className={ui.error}>{createState.error}</p>

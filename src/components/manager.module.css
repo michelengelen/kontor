@@ -43,15 +43,25 @@
   margin-bottom: 10px;
 }
 
+/* One row of 12 on wide screens, two rows of 6 on narrow. */
 .swatches {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  justify-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 519px) {
+  .swatches {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+  }
 }
 
 .swatch {
-  width: 30px;
-  height: 30px;
+  position: relative;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -65,10 +75,25 @@
     0 0 0 4px var(--accent);
 }
 
+/* Taken: dimmed and crossed out */
 .swatchTaken {
   composes: swatch;
-  opacity: 0.3;
+  opacity: 0.35;
   cursor: default;
+}
+
+.swatchTaken::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    transparent calc(50% - 1.5px),
+    var(--ink) calc(50% - 1.5px),
+    var(--ink) calc(50% + 1.5px),
+    transparent calc(50% + 1.5px)
+  );
 }
 
 .createForm {

@@ -88,7 +88,7 @@ export async function createCategory(
 
   const existing = await db.select().from(categories);
   const color = nextFreeColor(existing.map((c) => c.color));
-  if (!color) return { error: "Alle 8 Farben sind vergeben." };
+  if (!color) return { error: "Alle 12 Farben sind vergeben." };
   if (existing.some((c) => c.name.toLowerCase() === name.toLowerCase())) {
     return { error: "Diese Kategorie existiert bereits." };
   }
