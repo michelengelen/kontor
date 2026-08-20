@@ -41,3 +41,18 @@ export function monthlyEquivalentCents(
 ): number {
   return amountCents / CADENCE_INTERVAL[cadence];
 }
+
+// Calendar months (1-12) in which the entry lands on a sheet,
+// sorted ascending. Monthly returns all twelve.
+export function occurrenceMonths(
+  cadence: Cadence,
+  startMonth: string,
+): number[] {
+  const interval = CADENCE_INTERVAL[cadence];
+  const start = monthIndex(startMonth) % 12;
+  const months: number[] = [];
+  for (let k = 0; k < 12 / interval; k++) {
+    months.push(((start + k * interval) % 12) + 1);
+  }
+  return months.sort((a, b) => a - b);
+}

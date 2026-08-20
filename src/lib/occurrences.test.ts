@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   addMonths,
   monthlyEquivalentCents,
+  occurrenceMonths,
   occursInMonth,
   type Cadence,
 } from "./occurrences";
@@ -69,6 +70,25 @@ describe("monthlyEquivalentCents", () => {
     expect(monthlyEquivalentCents(1200, "monthly")).toBe(1200);
     expect(monthlyEquivalentCents(1200, "quarterly")).toBe(400);
     expect(monthlyEquivalentCents(1200, "yearly")).toBe(100);
+  });
+});
+
+describe("occurrenceMonths", () => {
+  it("lists the phase months of a quarterly entry", () => {
+    expect(occurrenceMonths("quarterly", "2025-11")).toEqual([2, 5, 8, 11]);
+    expect(occurrenceMonths("quarterly", "2026-01")).toEqual([1, 4, 7, 10]);
+  });
+
+  it("lists both months of a half-yearly entry", () => {
+    expect(occurrenceMonths("halfyearly", "2026-02")).toEqual([2, 8]);
+  });
+
+  it("lists the single month of a yearly entry", () => {
+    expect(occurrenceMonths("yearly", "2026-12")).toEqual([12]);
+  });
+
+  it("lists all twelve months for monthly", () => {
+    expect(occurrenceMonths("monthly", "2026-05")).toHaveLength(12);
   });
 });
 

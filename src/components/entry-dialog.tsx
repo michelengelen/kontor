@@ -12,8 +12,8 @@ import {
   type FormState,
 } from "@/app/template/actions";
 import { CADENCES } from "@/lib/cadence";
-import { currentYm, formatYmLong } from "@/lib/dates";
-import { addMonths, type Cadence } from "@/lib/occurrences";
+import { currentYm, formatMonthList, formatYmLong } from "@/lib/dates";
+import { addMonths, occurrenceMonths, type Cadence } from "@/lib/occurrences";
 import type { Category, PaymentSource, TemplateEntry } from "@/db/schema";
 import { ChoiceChips } from "./chips";
 import ui from "./ui.module.css";
@@ -220,6 +220,12 @@ function EntryForm({
           value={cadence}
           onChange={(v) => setCadence(v as Cadence)}
         />
+        {cadence !== "monthly" ? (
+          <p className={ui.helper}>
+            Erscheint auf den Blättern im{" "}
+            {formatMonthList(occurrenceMonths(cadence, startMonth))}
+          </p>
+        ) : null}
       </div>
 
       <div className={ui.field}>

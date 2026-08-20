@@ -19,6 +19,25 @@ export function monthName(month: number): string {
   return monthOnlyFormatter.format(new Date(Date.UTC(2026, month - 1, 1)));
 }
 
+const monthShortFormatter = new Intl.DateTimeFormat("de-DE", {
+  month: "short",
+  timeZone: "UTC",
+});
+
+const listFormatter = new Intl.ListFormat("de-DE", { type: "conjunction" });
+
+// "Feb", "März"
+export function monthShort(month: number): string {
+  return monthShortFormatter
+    .format(new Date(Date.UTC(2026, month - 1, 1)))
+    .replace(".", "");
+}
+
+// [2, 5, 8, 11] -> "Feb, Mai, Aug und Nov"
+export function formatMonthList(months: number[]): string {
+  return listFormatter.format(months.map(monthShort));
+}
+
 // "2026-08" for the current month.
 export function currentYm(): string {
   const now = new Date();

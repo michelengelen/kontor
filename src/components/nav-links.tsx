@@ -9,12 +9,12 @@ export function NavLinks() {
   const links = [
     {
       href: "/sheets",
-      label: "Sheets",
+      label: "Blätter",
       active: pathname === "/" || pathname.startsWith("/sheets"),
     },
     {
       href: "/template",
-      label: "Template",
+      label: "Vorlage",
       active: pathname.startsWith("/template"),
     },
   ];

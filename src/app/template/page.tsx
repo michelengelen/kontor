@@ -5,9 +5,9 @@ import { getSources } from "@/db/queries";
 import { categories, templateEntries } from "@/db/schema";
 import { cadenceMeta } from "@/lib/cadence";
 import { colorVar } from "@/lib/colors";
-import { currentYm, formatYmShort } from "@/lib/dates";
+import { currentYm, formatMonthList, formatYmShort } from "@/lib/dates";
 import { formatCents } from "@/lib/money";
-import { monthlyEquivalentCents } from "@/lib/occurrences";
+import { monthlyEquivalentCents, occurrenceMonths } from "@/lib/occurrences";
 import { CategoryManager } from "@/components/category-manager";
 import { EntryDialog } from "@/components/entry-dialog";
 import { EntryRowActions } from "@/components/entry-row-actions";
@@ -48,8 +48,13 @@ export default async function TemplatePage() {
 
   function metaLine(entry: (typeof entries)[number]): string {
     const parts = [cadenceMeta(entry.cadence)];
-    if (entry.cadence !== "monthly" || entry.startMonth > cur) {
+    if (entry.startMonth > cur) {
       parts.push(`ab ${formatYmShort(entry.startMonth)}`);
+    }
+    if (entry.cadence !== "monthly") {
+      parts.push(
+        formatMonthList(occurrenceMonths(entry.cadence, entry.startMonth)),
+      );
     }
     const source = entry.paymentSourceId
       ? sourceById.get(entry.paymentSourceId)
