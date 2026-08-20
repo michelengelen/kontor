@@ -126,13 +126,15 @@ export default async function TemplatePage() {
                     <span className={`${ui.mono} ${styles.entryAmount}`}>
                       {formatCents(entry.amountCents)}
                     </span>
+                  </div>
+                  <div className={styles.entryFoot}>
+                    <p className={styles.entryMeta}>{metaLine(entry)}</p>
                     <EntryRowActions
                       entry={entry}
                       categories={cats}
                       sources={sources}
                     />
                   </div>
-                  <p className={styles.entryMeta}>{metaLine(entry)}</p>
                 </li>
               );
             })}

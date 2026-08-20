@@ -56,11 +56,19 @@
   font-weight: 500;
 }
 
+.entryFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 2px;
+}
+
 .entryMeta {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--muted);
-  margin: 2px 0 0 18px;
+  margin-left: 18px;
 }
 
 .footerRow {
