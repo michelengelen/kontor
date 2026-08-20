@@ -1,0 +1,423 @@
+/* Shared primitives: buttons, inputs, dialogs, chips. */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button:hover {
+  border-color: var(--baseline);
+}
+
+.buttonPrimary {
+  composes: button;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.buttonPrimary:hover {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.button:disabled,
+.buttonPrimary:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.buttonDanger {
+  composes: button;
+  color: var(--danger);
+}
+
+.buttonGhost {
+  composes: button;
+  border-color: transparent;
+  background: none;
+  color: var(--ink-2);
+  padding: 6px 8px;
+}
+
+.buttonGhost:hover {
+  color: var(--ink);
+  border-color: transparent;
+  background: var(--page);
+}
+
+.input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--baseline);
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 15px;
+}
+
+.input::placeholder {
+  color: var(--muted);
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  margin-bottom: 4px;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+.error {
+  color: var(--danger);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Dialog — centered on wide screens, bottom sheet below 700px. */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 11, 11, 0.5);
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(480px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  padding: 22px;
+}
+
+@media (max-width: 699px) {
+  .popup {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    width: 100vw;
+    max-height: 92dvh;
+    border-radius: 16px 16px 0 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding-top: 10px;
+  }
+
+  .popup::before {
+    content: "";
+    display: block;
+    width: 52px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--baseline);
+    margin: 0 auto 16px;
+  }
+}
+
+/* Small centered card (confirm dialogs) on every viewport. */
+.popupCenter {
+  composes: popup;
+}
+
+@media (max-width: 699px) {
+  .popupCenter {
+    top: 50%;
+    bottom: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(440px, calc(100vw - 32px));
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    padding-top: 22px;
+  }
+
+  .popupCenter::before {
+    content: none;
+  }
+}
+
+.dialogEyebrow {
+  composes: eyebrow;
+  margin-bottom: 4px;
+}
+
+.dialogTitle {
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.dialogSubtitle {
+  color: var(--muted);
+  font-size: 14px;
+  margin: -12px 0 16px;
+}
+
+.dialogActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+@media (max-width: 699px) {
+  .dialogActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dialogActions > * {
+    justify-content: center;
+  }
+}
+
+.buttonDangerSolid {
+  composes: button;
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+/* Category chips */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+.chipDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Base UI Select */
+
+.selectTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--baseline);
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 15px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.selectPopup {
+  min-width: var(--anchor-width, 180px);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 8px 24px rgba(11, 11, 11, 0.12);
+  max-height: min(320px, var(--available-height));
+  overflow-y: auto;
+}
+
+.selectItem {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.selectItem[data-highlighted] {
+  background: var(--page);
+}
+
+/* Checkbox */
+
+.checkbox {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--baseline);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.checkbox[data-checked] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Choice chips (Rhythmus, Kategorie, Bezahlt von) */
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chipBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.chipBtn:hover {
+  border-color: var(--baseline);
+}
+
+.chipBtnActive {
+  composes: chipBtn;
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.chipBtnDashed {
+  composes: chipBtn;
+  border-style: dashed;
+  color: var(--muted);
+}
+
+/* Small mono tag: PAYPAL, ONE-OFF, STANDARD */
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--hairline);
+  border-radius: 5px;
+  padding: 2px 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tagAccent {
+  composes: tag;
+  color: var(--accent);
+  border-color: var(--accent);
+  text-transform: none;
+  letter-spacing: 0.06em;
+}
+
+/* Row-actions menu (⋯) */
+
+.menuTrigger {
+  composes: buttonGhost;
+  padding: 4px 8px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.menuPopup {
+  min-width: 160px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  padding: 4px;
+  box-shadow: 0 8px 24px rgba(11, 11, 11, 0.14);
+}
+
+.menuItem {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.menuItem[data-highlighted] {
+  background: var(--page);
+}
+
+.menuItemDanger {
+  composes: menuItem;
+  color: var(--danger);
+}
+
+/* Amount input with a € suffix */
+
+.amountWrap {
+  position: relative;
+}
+
+.amountWrap > input {
+  padding-right: 32px;
+}
+
+.amountSuffix {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  pointer-events: none;
+}
+
+/* Double rule — the register/ledger divider */
+
+.doubleRule {
+  border: none;
+  border-top: 3px double var(--baseline);
+}

@@ -1,0 +1,59 @@
+.main {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+}
+
+.card {
+  width: min(400px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  padding: 32px 28px;
+}
+
+.brand {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.rule {
+  border: none;
+  border-top: 3px double var(--baseline);
+  width: 40px;
+  margin: 14px 0 22px;
+}
+
+.submit {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.submit:hover {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.submit:disabled {
+  opacity: 0.55;
+  cursor: default;
+}

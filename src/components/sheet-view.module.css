@@ -1,0 +1,315 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.aside {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr 280px;
+    align-items: start;
+  }
+
+  .aside {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: sticky;
+    top: 72px;
+  }
+
+  .topMeter {
+    display: none;
+  }
+
+  .chartMobile {
+    display: none;
+  }
+}
+
+.main {
+  min-width: 0;
+}
+
+/* Overall meter (mobile) */
+
+.topMeter {
+  margin-bottom: 20px;
+}
+
+.meterTrack {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  overflow: hidden;
+}
+
+.meterFill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.topMeterLine {
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-top: 8px;
+}
+
+/* Category groups */
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.group {
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.groupHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 15px;
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.chevronClosed {
+  composes: chevron;
+  transform: rotate(-90deg);
+}
+
+.groupName {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.groupCount {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.groupSum {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.groupSumSettled {
+  composes: groupSum;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.groupMeter {
+  height: 3px;
+  background: var(--accent-soft);
+}
+
+.groupMeterFill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.groupBody {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.25s ease;
+}
+
+.groupBodyClosed {
+  composes: groupBody;
+  grid-template-rows: 0fr;
+}
+
+.groupBody > ul {
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .groupBody {
+    transition: none;
+  }
+}
+
+/* Rows */
+
+.rows {
+  list-style: none;
+  padding: 0 16px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.check {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--baseline);
+  border-radius: 7px;
+  background: var(--surface);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  color: transparent;
+}
+
+.check[data-checked] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.rowName {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--baseline);
+  transform: translateY(-4px);
+  min-width: 16px;
+}
+
+.rowAmount {
+  font-size: 15px;
+}
+
+.rowPaid .rowName,
+.rowPaid .rowAmount {
+  color: var(--muted);
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+/* Summary card (tablet) */
+
+.summaryCard {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.summaryValue {
+  font-size: 28px;
+  font-weight: 500;
+  margin: 6px 0 12px;
+}
+
+.summaryRows {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.summaryRow dt {
+  font-family: var(--font-mono);
+  color: var(--muted);
+}
+
+.good {
+  color: var(--good);
+}
+
+/* Chart */
+
+.chartCard {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.chartBar {
+  display: flex;
+  gap: 2px;
+  height: 14px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.chartSegment {
+  min-width: 3px;
+}
+
+.legend {
+  list-style: none;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.legendRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.legendRow > :first-child {
+  align-self: center;
+}
+
+.legendName {
+  color: var(--ink-2);
+}
+
+.legendValue {
+  font-size: 13px;
+}
+
+.legendPercent {
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 36px;
+  text-align: right;
+}

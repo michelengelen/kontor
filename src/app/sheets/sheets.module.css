@@ -1,0 +1,276 @@
+.main {
+  width: min(960px, 100%);
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+/* Create form */
+
+.createForm {
+  display: flex;
+  gap: 10px;
+}
+
+.monthTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex: 1;
+  max-width: 320px;
+  padding: 10px 12px;
+  border: 1px solid var(--baseline);
+  border-radius: 10px;
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.monthTrigger:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.monthItem {
+  display: grid;
+  grid-template-columns: 16px 1fr auto;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 10px;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.monthItem[data-highlighted] {
+  background: var(--page);
+}
+
+.monthItem[data-disabled] {
+  color: var(--muted);
+  cursor: default;
+}
+
+.monthItemNote {
+  font-size: 12px;
+  color: var(--muted);
+  padding-left: 16px;
+  justify-self: end;
+}
+
+.helper {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* Year folders */
+
+.years {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.yearBox {
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.yearHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.chevronClosed {
+  composes: chevron;
+  transform: rotate(-90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+}
+
+.yearName {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--baseline);
+  transform: translateY(-3px);
+  min-width: 16px;
+}
+
+.yearMeta {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.yearBody {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.25s ease;
+}
+
+.yearBodyClosed {
+  composes: yearBody;
+  grid-template-rows: 0fr;
+}
+
+.yearBody > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yearBody {
+    transition: none;
+  }
+}
+
+.yearContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 2px 12px 12px;
+}
+
+@media (min-width: 700px) {
+  .yearContent {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Month cards */
+
+.card {
+  display: block;
+  background: var(--page);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.card:hover {
+  border-color: var(--baseline);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.cardTitle {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.cardTotal {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.cardMeter {
+  height: 7px;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  margin: 12px 0 9px;
+  overflow: hidden;
+}
+
+.cardMeterFill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--accent);
+}
+
+.cardMeterDone {
+  composes: cardMeterFill;
+  background: var(--good);
+}
+
+.cardFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.cardCounts {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.cardPaid {
+  color: var(--good);
+}
+
+.cardDone {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--good);
+}
+
+.cardPercent {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Empty state */
+
+.emptyState {
+  max-width: 480px;
+  margin: 48px auto 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 0 8px;
+}
+
+.emptyState > hr {
+  width: 64px;
+}
+
+.emptyCopy {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.emptySub {
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.emptyLink {
+  color: var(--accent);
+}

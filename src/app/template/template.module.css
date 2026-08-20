@@ -1,0 +1,249 @@
+.main {
+  width: min(960px, 100%);
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.aside {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr 280px;
+    align-items: start;
+  }
+
+  .aside {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.registerCol {
+  min-width: 0;
+}
+
+/* Register */
+
+.register {
+  list-style: none;
+  border-top: 3px double var(--baseline);
+  border-bottom: 3px double var(--baseline);
+}
+
+.entry {
+  padding: 13px 0 11px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.entryMain {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.entryName {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--baseline);
+  transform: translateY(-3px);
+  min-width: 16px;
+}
+
+.entryAmount {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.entryMeta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin: 2px 0 0 18px;
+}
+
+.footerRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 0;
+}
+
+.footerSum {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Manage rows (mobile) */
+
+.manageRows {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 900px) {
+  .manageRows {
+    display: none;
+  }
+}
+
+.manageRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 15px 2px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 15px;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.manageRow:hover {
+  color: var(--accent);
+}
+
+.manageDots {
+  display: inline-flex;
+}
+
+.manageDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--page);
+  margin-right: -4px;
+}
+
+.manageIcon {
+  color: var(--muted);
+}
+
+.manageSpacer {
+  flex: 1;
+}
+
+/* Side panel (tablet) */
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.panelList {
+  list-style: none;
+  margin: 10px 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.panelRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.panelName {
+  flex: 1;
+}
+
+.panelCount {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.panelButton {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px dashed var(--baseline);
+  border-radius: 10px;
+  background: none;
+  color: var(--ink-2);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.panelButton:hover {
+  color: var(--ink);
+  border-color: var(--muted);
+}
+
+.panelLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 4px;
+  background: none;
+  border: none;
+  color: var(--ink-2);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.panelLink:hover {
+  color: var(--ink);
+}
+
+/* Empty state */
+
+.emptyState {
+  max-width: 480px;
+  margin: 48px auto 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 0 8px;
+}
+
+.emptyState > hr {
+  width: 64px;
+}
+
+.emptyCopy {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.emptySub {
+  font-size: 14px;
+  color: var(--muted);
+}
