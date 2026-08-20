@@ -10,6 +10,7 @@ import { formatCents } from "@/lib/money";
 import { monthlyEquivalentCents, occurrenceMonths } from "@/lib/occurrences";
 import { CategoryManager } from "@/components/category-manager";
 import { EntryDialog } from "@/components/entry-dialog";
+import { InfoTip } from "@/components/info-tip";
 import { EntryRowActions } from "@/components/entry-row-actions";
 import { SourceManager } from "@/components/source-manager";
 import ui from "@/components/ui.module.css";
@@ -110,33 +111,32 @@ export default async function TemplatePage() {
               return (
                 <li key={entry.id} className={styles.entry}>
                   <div className={styles.entryMain}>
-                    <span
-                      className={ui.chipDot}
-                      style={{
-                        background: category
-                          ? colorVar(category.color)
-                          : "var(--cat-none)",
-                      }}
-                    />
+                    <InfoTip label={category?.name ?? "Ohne Kategorie"}>
+                      <span
+                        className={ui.chipDot}
+                        style={{
+                          background: category
+                            ? colorVar(category.color)
+                            : "var(--cat-none)",
+                        }}
+                      />
+                    </InfoTip>
                     <span className={styles.entryName}>{entry.name}</span>
                     <span className={styles.metaIcons}>
                       {entry.cadence !== "monthly" ? (
-                        <span title={cadenceTip(entry)}>
-                          <Renew size={14} aria-label={cadenceTip(entry)} />
-                        </span>
+                        <InfoTip label={cadenceTip(entry)}>
+                          <Renew size={14} />
+                        </InfoTip>
                       ) : null}
                       {entry.startMonth > cur ? (
-                        <span title={`ab ${formatYmShort(entry.startMonth)}`}>
-                          <Time
-                            size={14}
-                            aria-label={`ab ${formatYmShort(entry.startMonth)}`}
-                          />
-                        </span>
+                        <InfoTip label={`ab ${formatYmShort(entry.startMonth)}`}>
+                          <Time size={14} />
+                        </InfoTip>
                       ) : null}
                       {source && !source.isDefault ? (
-                        <span title={source.name}>
-                          <Wallet size={14} aria-label={source.name} />
-                        </span>
+                        <InfoTip label={`Bezahlt von ${source.name}`}>
+                          <Wallet size={14} />
+                        </InfoTip>
                       ) : null}
                     </span>
                     <span className={ui.leader} aria-hidden />
