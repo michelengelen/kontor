@@ -65,7 +65,9 @@ export function YearGroup({
         </span>
       </button>
       <div className={open ? styles.yearBody : styles.yearBodyClosed}>
-        <div className={styles.yearContent}>{children}</div>
+        <div>
+          <div className={styles.yearContent}>{children}</div>
+        </div>
       </div>
     </section>
   );
