@@ -56,26 +56,26 @@
   font-weight: 500;
 }
 
-.entryFoot {
-  display: flex;
+.metaIcons {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 2px;
-}
-
-.entryMeta {
-  font-family: var(--font-mono);
-  font-size: 12px;
+  gap: 6px;
   color: var(--muted);
-  margin-left: 18px;
+  flex-shrink: 0;
 }
 
+.metaIcons > span {
+  display: grid;
+  place-items: center;
+}
+
+/* Right padding mirrors the edit button (28px + 10px gap) so the
+   footer sum aligns with the entry amounts. */
 .footerRow {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 13px 0;
+  padding: 13px 38px 13px 0;
 }
 
 .footerSum {

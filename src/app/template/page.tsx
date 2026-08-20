@@ -1,5 +1,5 @@
 import { asc } from "drizzle-orm";
-import { Add, ChevronRight, Wallet } from "@carbon/icons-react";
+import { Add, ChevronRight, Renew, Time, Wallet } from "@carbon/icons-react";
 import { db } from "@/db";
 import { getSources } from "@/db/queries";
 import { categories, templateEntries } from "@/db/schema";
@@ -46,21 +46,10 @@ export default async function TemplatePage() {
     ),
   );
 
-  function metaLine(entry: (typeof entries)[number]): string {
-    const parts = [cadenceMeta(entry.cadence)];
-    if (entry.startMonth > cur) {
-      parts.push(`ab ${formatYmShort(entry.startMonth)}`);
-    }
-    if (entry.cadence !== "monthly") {
-      parts.push(
-        formatMonthList(occurrenceMonths(entry.cadence, entry.startMonth)),
-      );
-    }
-    const source = entry.paymentSourceId
-      ? sourceById.get(entry.paymentSourceId)
-      : undefined;
-    if (source && !source.isDefault) parts.push(source.name);
-    return parts.join(" · ");
+  function cadenceTip(entry: (typeof entries)[number]): string {
+    return `${cadenceMeta(entry.cadence)} · ${formatMonthList(
+      occurrenceMonths(entry.cadence, entry.startMonth),
+    )}`;
   }
 
   if (entries.length === 0) {
@@ -115,6 +104,9 @@ export default async function TemplatePage() {
               const category = entry.categoryId
                 ? categoryById.get(entry.categoryId)
                 : undefined;
+              const source = entry.paymentSourceId
+                ? sourceById.get(entry.paymentSourceId)
+                : undefined;
               return (
                 <li key={entry.id} className={styles.entry}>
                   <div className={styles.entryMain}>
@@ -127,13 +119,30 @@ export default async function TemplatePage() {
                       }}
                     />
                     <span className={styles.entryName}>{entry.name}</span>
+                    <span className={styles.metaIcons}>
+                      {entry.cadence !== "monthly" ? (
+                        <span title={cadenceTip(entry)}>
+                          <Renew size={14} aria-label={cadenceTip(entry)} />
+                        </span>
+                      ) : null}
+                      {entry.startMonth > cur ? (
+                        <span title={`ab ${formatYmShort(entry.startMonth)}`}>
+                          <Time
+                            size={14}
+                            aria-label={`ab ${formatYmShort(entry.startMonth)}`}
+                          />
+                        </span>
+                      ) : null}
+                      {source && !source.isDefault ? (
+                        <span title={source.name}>
+                          <Wallet size={14} aria-label={source.name} />
+                        </span>
+                      ) : null}
+                    </span>
                     <span className={ui.leader} aria-hidden />
                     <span className={`${ui.mono} ${styles.entryAmount}`}>
                       {formatCents(entry.amountCents)}
                     </span>
-                  </div>
-                  <div className={styles.entryFoot}>
-                    <p className={styles.entryMeta}>{metaLine(entry)}</p>
                     <EntryRowActions
                       entry={entry}
                       categories={cats}
