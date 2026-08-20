@@ -1,0 +1,121 @@
+.picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.picker > :first-child,
+.picker > :last-child {
+  width: auto;
+  min-width: 195px;
+  white-space: nowrap;
+}
+
+.pickerArrow {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  composes: card from "../../components/ui.module.css";
+  padding: 16px;
+}
+
+.deltaCard {
+  composes: card;
+}
+
+.deltaValue {
+  font-size: 32px;
+  font-weight: 600;
+  margin: 6px 0 2px;
+}
+
+.deltaSub {
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.deltaPercent {
+  color: var(--muted);
+}
+
+.deltaUp {
+  color: var(--danger);
+}
+
+.deltaDown {
+  color: var(--good);
+}
+
+.deltaZero {
+  color: var(--muted);
+}
+
+.rows {
+  list-style: none;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rowLine {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 14px;
+}
+
+.rowLine:last-child {
+  border-bottom: none;
+}
+
+.rowName {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rowNameMuted {
+  composes: rowName;
+  color: var(--muted);
+}
+
+.rowPair {
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.rowDelta {
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 92px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+@media (max-width: 519px) {
+  .rowPair {
+    display: none;
+  }
+
+  .picker {
+    width: 100%;
+  }
+
+  .picker > :first-child,
+  .picker > :last-child {
+    flex: 1;
+    min-width: 0;
+  }
+}

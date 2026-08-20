@@ -13,6 +13,11 @@ export function NavLinks() {
       active: pathname === "/" || pathname.startsWith("/sheets"),
     },
     {
+      href: "/vergleich",
+      label: "Vergleich",
+      active: pathname.startsWith("/vergleich"),
+    },
+    {
       href: "/template",
       label: "Vorlage",
       active: pathname.startsWith("/template"),

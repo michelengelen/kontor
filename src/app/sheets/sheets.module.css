@@ -1,5 +1,13 @@
 /* Create form */
 
+.toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .createForm {
   display: flex;
   gap: 10px;
