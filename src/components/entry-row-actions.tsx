@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Menu } from "@base-ui/react/menu";
-import { OverflowMenuHorizontal } from "@carbon/icons-react";
+import { Edit } from "@carbon/icons-react";
 import { deleteEntry } from "@/app/template/actions";
 import { formatCents } from "@/lib/money";
 import type { Category, PaymentSource, TemplateEntry } from "@/db/schema";
@@ -29,7 +29,7 @@ export function EntryRowActions({
           className={ui.menuTrigger}
           aria-label={`Aktionen für ${entry.name}`}
         >
-          <OverflowMenuHorizontal size={18} />
+          <Edit size={14} />
         </Menu.Trigger>
         <Menu.Portal>
           <Menu.Positioner sideOffset={4} align="end">

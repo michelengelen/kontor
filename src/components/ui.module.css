@@ -34,8 +34,7 @@
 
 .leader {
   flex: 1;
-  border-bottom: 1px dotted var(--baseline);
-  transform: translateY(-3px);
+  border-bottom: 3px dotted var(--baseline);
   min-width: 16px;
 }
 
@@ -481,10 +480,22 @@
 /* Row-actions menu (⋯) */
 
 .menuTrigger {
-  composes: buttonGhost;
-  padding: 4px 8px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: none;
+  color: var(--ink-2);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.menuTrigger:hover {
+  color: var(--ink);
+  border-color: var(--baseline);
 }
 
 .menuPopup {

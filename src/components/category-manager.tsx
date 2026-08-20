@@ -3,7 +3,7 @@
 import { useActionState, useRef, useState, useTransition } from "react";
 import { Dialog } from "@base-ui/react/dialog";
 import { Menu } from "@base-ui/react/menu";
-import { OverflowMenuHorizontal } from "@carbon/icons-react";
+import { Edit } from "@carbon/icons-react";
 import {
   createCategory,
   deleteCategory,
@@ -83,7 +83,7 @@ export function CategoryManager({
                       className={ui.menuTrigger}
                       aria-label={`Aktionen für ${cat.name}`}
                     >
-                      <OverflowMenuHorizontal size={18} />
+                      <Edit size={14} />
                     </Menu.Trigger>
                     <Menu.Portal>
                       <Menu.Positioner sideOffset={4} align="end">
