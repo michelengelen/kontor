@@ -103,6 +103,7 @@
 /* Month cards */
 
 .card {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
   display: block;
   background: var(--page);
   border: 1px solid var(--hairline);

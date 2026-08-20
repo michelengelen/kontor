@@ -3,7 +3,7 @@
 import { useActionState, useRef, useState, useTransition } from "react";
 import { Dialog } from "@base-ui/react/dialog";
 import { Menu } from "@base-ui/react/menu";
-import { Edit } from "@carbon/icons-react";
+import { Close, Edit } from "@carbon/icons-react";
 import {
   createCategory,
   deleteCategory,
@@ -49,6 +49,7 @@ export function CategoryManager({
     startTransition(async () => {
       const result = await setCategoryColor(id, color);
       if (result && "error" in result) setColorError(result.error);
+      else setEditingId(null);
     });
   }
 
@@ -112,8 +113,28 @@ export function CategoryManager({
                 </div>
 
                 {editingId === cat.id ? (
-                  <div className={styles.editPanel}>
-                    <p className={styles.editLabel}>Farbe für „{cat.name}“</p>
+                  <div
+                    className={styles.editPanel}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape") {
+                        e.stopPropagation();
+                        setEditingId(null);
+                      }
+                    }}
+                  >
+                    <div className={styles.editHead}>
+                      <p className={styles.editLabel}>
+                        Farbe für „{cat.name}“
+                      </p>
+                      <button
+                        type="button"
+                        className={styles.editClose}
+                        aria-label="Farbauswahl schließen"
+                        onClick={() => setEditingId(null)}
+                      >
+                        <Close size={16} />
+                      </button>
+                    </div>
                     <div className={styles.swatches}>
                       {CATEGORY_COLORS.map((slot) => {
                         const takenBy = categories.find(

@@ -75,12 +75,20 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .chevron {
+  .chevron,
+  .meterFill,
+  .button,
+  .input,
+  .chipBtn,
+  .menuTrigger,
+  .menuItem,
+  .selectTrigger,
+  .selectItem {
     transition: none;
   }
 
-  .meterFill {
-    transition: none;
+  .button:active {
+    transform: none;
   }
 }
 
@@ -125,6 +133,7 @@
 }
 
 .button {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -141,6 +150,10 @@
 
 .button:hover {
   border-color: var(--baseline);
+}
+
+.button:active {
+  transform: scale(0.97);
 }
 
 .buttonPrimary {
@@ -176,6 +189,7 @@
 }
 
 .input {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
   width: 100%;
   padding: 8px 10px;
   border: 1px solid var(--baseline);
@@ -387,6 +401,7 @@
 /* Base UI Select */
 
 .selectTrigger {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -425,6 +440,7 @@
 }
 
 .selectItem {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
   display: grid;
   grid-template-columns: 16px 1fr;
   align-items: center;
@@ -449,6 +465,7 @@
 }
 
 .chipBtn {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -505,6 +522,7 @@
 /* Row-actions menu (⋯) */
 
 .menuTrigger {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
   display: grid;
   place-items: center;
   width: 28px;
@@ -533,6 +551,7 @@
 }
 
 .menuItem {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
   display: block;
   width: 100%;
   text-align: left;
