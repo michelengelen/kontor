@@ -2,7 +2,6 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
-  margin-top: 16px;
 }
 
 .aside {
