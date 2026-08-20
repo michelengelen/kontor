@@ -101,6 +101,8 @@ export function SourceManager({
           <form ref={formRef} action={createAction} className={styles.createForm}>
             <input
               name="name"
+              autoComplete="off"
+              data-1p-ignore
               required
               placeholder="Neue Quelle…"
               aria-label="Name der neuen Quelle"

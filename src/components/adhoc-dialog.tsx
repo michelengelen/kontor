@@ -94,7 +94,14 @@ function AdhocForm({
         <label className={ui.label} htmlFor="adhoc-name">
           Name
         </label>
-        <Input id="adhoc-name" name="name" required className={ui.input} />
+        <Input
+          id="adhoc-name"
+          name="name"
+          autoComplete="off"
+          data-1p-ignore
+          required
+          className={ui.input}
+        />
       </div>
 
       <div className={ui.field}>
@@ -105,6 +112,7 @@ function AdhocForm({
           <Input
             id="adhoc-amount"
             name="amount"
+            autoComplete="off"
             required
             inputMode="decimal"
             placeholder="42,50"

@@ -178,6 +178,8 @@ export function CategoryManager({
             <form ref={formRef} action={createAction} className={styles.createForm}>
               <input
                 name="name"
+                autoComplete="off"
+                data-1p-ignore
                 required
                 placeholder="Neue Kategorie…"
                 aria-label="Name der neuen Kategorie"

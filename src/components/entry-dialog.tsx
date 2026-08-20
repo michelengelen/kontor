@@ -4,7 +4,7 @@ import { useActionState, useState } from "react";
 import { Dialog } from "@base-ui/react/dialog";
 import { Input } from "@base-ui/react/input";
 import { Select } from "@base-ui/react/select";
-import { Checkmark, ChevronDown } from "@carbon/icons-react";
+import { Add, Checkmark, ChevronDown } from "@carbon/icons-react";
 import {
   createCategory,
   saveEntry,
@@ -144,6 +144,8 @@ function EntryForm({
         <Input
           id="entry-name"
           name="name"
+          autoComplete="off"
+          data-1p-ignore
           required
           defaultValue={entry?.name}
           className={ui.input}
@@ -159,6 +161,7 @@ function EntryForm({
             <Input
               id="entry-amount"
               name="amount"
+              autoComplete="off"
               required
               inputMode="decimal"
               placeholder="42,50"
@@ -246,7 +249,7 @@ function EntryForm({
                 className={ui.chipBtnDashed}
                 onClick={() => setCreatingCategory((c) => !c)}
               >
-                + Neu
+                <Add size={14} /> Neu
               </button>
             ) : null
           }
@@ -255,6 +258,8 @@ function EntryForm({
           <div className={styles.inlineCreate}>
             <Input
               name="name"
+              autoComplete="off"
+              data-1p-ignore
               placeholder="Neue Kategorie…"
               aria-label="Name der neuen Kategorie"
               required
